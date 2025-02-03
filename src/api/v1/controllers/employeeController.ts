@@ -39,3 +39,23 @@ export const getAllEmployees = async (
         next(error);
     }
 };
+
+/**
+ * @description Get an employee by ID.
+ * @route GET /api/v1/employees/:id
+ * @returns {Promise<void>}
+ */
+export const getEmployeeById = async (
+    req: Request,
+    res: Response,
+    next: NextFunction
+): Promise<void> => {
+    try {
+        const employeeId = req.params.id;
+        const employee: Employee = await employeeService.getEmployeeById(employeeId); 
+
+        res.status(200).json({ message: "Employee Retrieved", data: employee });
+    } catch (error) {
+        next(error);
+    }
+};

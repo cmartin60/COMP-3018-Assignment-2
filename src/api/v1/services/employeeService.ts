@@ -63,3 +63,18 @@ export const createEmployee = async ({
 export const getAllEmployees = async (): Promise<Employee[]> => {
     return employees;
 };
+
+/**
+ * @description Get an employee by ID
+ * @param {string} id - Employee ID
+ * @returns {Promise<Employee>}
+ */
+export const getEmployeeById = async (id: string): Promise<Employee> => {
+    const employee = employees.find((emp) => emp.id === id);
+
+    if (!employee) {
+        throw new Error(`Employee with ID ${id} not found`);
+    }
+
+    return employee;
+};
