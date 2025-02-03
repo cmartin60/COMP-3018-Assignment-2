@@ -1,29 +1,38 @@
+// import the express application and type definition
 import express, { Express } from "express";
 import morgan from "morgan";
 
+// import setupSwagger endpoint
 import setupSwagger from "../config/swagger";
 import itemRoutes from "./api/v1/routes/itemRoutes";
 
+// initialize the express application
 const app: Express = express();
 
-// Setup Swagger for API documentation
+// setup swagger for api documentation
 setupSwagger(app);
 
 app.use(morgan("combined"));
 app.use(express.json());
 
+// respond to GET request at endpoint "/" with message
+app.get("/", (req, res) => {
+  res.send("Hello, world!");
+});
+
+// example "tasks" endpoint
 /**
  * @openapi
  * /tasks:
- *   get:
- *     summary: Retrieve a list of tasks
- *     tags: [Tasks]
- *     responses:
- *       200:
- *         description: A list of tasks
+ *  get:
+ *   summary: Retrieve a list of tasks
+ *   tags: [Tasks]
+ *   responses:
+ *    200:
+ *     description: A list of tasks
  */
 app.get("/tasks", (req, res) => {
-	res.send("Retrieve tasks");
+  res.send("Retrieve tasks");
 });
 
 // define GET route for health check
@@ -38,15 +47,16 @@ app.get("/tasks", (req, res) => {
  *     description: The application's status, uptime, the current timestamp, and version
  */
 app.get("/api/v1/health", (req, res) => {
-    res.json({
-      status: "OK",
-      uptime: process.uptime(),
-      timestamp: new Date().toISOString(),
-      version: "1.0.0",
-    });
-    // send JSON response with status, server uptime, current time, API version
+  res.json({
+    status: "OK",
+    uptime: process.uptime(),
+    timestamp: new Date().toISOString(),
+    version: "1.0.0",
   });
-  
-  app.use("/api/v1/items", itemRoutes);
+  // send JSON response with status, server uptime, current time, API version
+});
 
+app.use("/api/v1/items", itemRoutes);
+
+// export app and server for testing
 export default app;
