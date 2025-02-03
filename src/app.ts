@@ -15,6 +15,7 @@ setupSwagger(app);
 app.use(morgan("combined"));
 app.use(express.json());
 
+// respond to GET request at endpoint "/" with message
 app.get("/", (req, res) => {
   res.send("Hello, world!");
 });
