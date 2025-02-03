@@ -78,3 +78,26 @@ export const getEmployeeById = async (id: string): Promise<Employee> => {
 
     return employee;
 };
+
+/**
+ * @description Update an existing employee.
+ * @param {string} id - The ID of the employee to update.
+ * @param {Partial<Employee>} employee - The updated employee data.
+ * @returns {Promise<Employee>}
+ * @throws {Error} If the employee with the given ID is not found.
+ */
+export const updateEmployee = async (
+    id: string,
+    employee: Partial<Pick<Employee, "position" | "phone">> // only position and phone can be updated
+): Promise<Employee> => {
+    const index: number = employees.findIndex((e) => e.id === id);
+    if (index === -1) {
+        throw new Error(`Employee with ID ${id} not found`);
+    }
+
+    // Update the employee at the found index
+    employees[index] = { ...employees[index], ...employee };
+
+    return employees[index];
+};
+
