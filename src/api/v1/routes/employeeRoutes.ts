@@ -1,19 +1,8 @@
-import { Router } from "express";
+import express from "express";
+import { createEmployee } from "../controllers/employeeController";
 
-const router = Router();
+const router = express.Router();
 
-/**
- * @openapi
- * /tasks:
- *   get:
- *     summary: Retrieve a list of tasks
- *     tags: [Tasks]
- *     responses:
- *       200:
- *         description: A list of tasks
- */
-router.get("/", (req, res) => {
-	res.send("Retrieve tasks");
-});
+router.post("/", createEmployee);
 
 export default router;

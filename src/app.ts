@@ -41,7 +41,7 @@ app.get("/health", (req, res) => {
 	res.status(200).send("Server is healthy");
 });
 
-app.use("/api/v1/items", employeeRoutes);
+app.use("/api/v1/employees", employeeRoutes);
 
 // export app and server for testing
 export default app;
