@@ -4,7 +4,7 @@ import morgan from "morgan";
 
 // import setupSwagger endpoint
 import setupSwagger from "../config/swagger";
-import itemRoutes from "./api/v1/routes/itemRoutes";
+import employeeRoutes from "./api/v1/routes/employeeRoutes";
 
 // initialize the express application
 const app: Express = express();
@@ -41,7 +41,7 @@ app.get("/health", (req, res) => {
 	res.status(200).send("Server is healthy");
 });
 
-app.use("/api/v1/items", itemRoutes);
+app.use("/api/v1/items", employeeRoutes);
 
 // export app and server for testing
 export default app;
