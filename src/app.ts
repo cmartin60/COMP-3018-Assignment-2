@@ -35,25 +35,10 @@ app.get("/tasks", (req, res) => {
   res.send("Retrieve tasks");
 });
 
-// define GET route for health check
-/**
- * @openapi
- * /api/v1/health:
- *  get:
- *   summary: Get health status of the application
- *   tags: [Health]
- *   responses:
- *    200:
- *     description: The application's status, uptime, the current timestamp, and version
- */
-app.get("/api/v1/health", (req, res) => {
-  res.json({
-    status: "OK",
-    uptime: process.uptime(),
-    timestamp: new Date().toISOString(),
-    version: "1.0.0",
-  });
-  // send JSON response with status, server uptime, current time, API version
+
+// Health Check Endpoint
+app.get("/health", (req, res) => {
+	res.status(200).send("Server is healthy");
 });
 
 app.use("/api/v1/items", itemRoutes);
