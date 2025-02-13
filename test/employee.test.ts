@@ -2,7 +2,6 @@ import request from "supertest";
 import app from "../src/app";
 
 describe("Employee API", () => {
-    // Create new employee
     it("should create a new employee and return employee data", async () => {
         const newEmployee = {
             name: "Alice Johnson",
@@ -28,7 +27,6 @@ describe("Employee API", () => {
         expect(response.body.data.branchId).toBe(newEmployee.branchId);
     });
 
-    // Get all employees
     it("should return an array of employees", async () => {
         const response = await request(app).get("/api/v1/employees");
 
@@ -49,7 +47,6 @@ describe("Employee API", () => {
         }
     });
 
-    // Get Employee by ID
     it("should return the correct employee for a specific ID", async () => {
         const newEmployee = {
             name: "Alice Johnson",
@@ -74,7 +71,6 @@ describe("Employee API", () => {
         expect(getResponse.body.data.branchId).toBe(newEmployee.branchId);
     });
 
-    // Update Employee
     it("should update the employee's data correctly", async () => {
         const newEmployee = {
             name: "Alice Johnson",
@@ -110,7 +106,6 @@ describe("Employee API", () => {
         expect(updateResponse.body.data.branchId).toBe(newEmployee.branchId);
     });
 
-    // Delete Employee
     it("should delete an employee successfully", async () => {
         const newEmployee = {
             name: "John Smith",

@@ -19,7 +19,7 @@ describe("Branch API", () => {
         expect(res.body.data.address).toBe(newBranch.address);
         expect(res.body.data.phone).toBe(newBranch.phone);
 
-        branchId = res.body.data.id; // Store the ID for later tests
+        branchId = res.body.data.id;
     });
 
     it("should return all branches", async () => {
