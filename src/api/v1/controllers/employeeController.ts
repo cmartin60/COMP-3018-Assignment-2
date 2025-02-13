@@ -81,7 +81,6 @@ export const updateEmployee = async (
     }
 };
 
-
 /**
  * @description Delete an employee.
  * @route DELETE /api/v1/employees/:id

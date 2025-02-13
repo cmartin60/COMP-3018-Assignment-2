@@ -76,14 +76,13 @@ export const getEmployeeById = async (id: string): Promise<Employee> => {
  */
 export const updateEmployee = async (
     id: string,
-    employee: Partial<Pick<Employee, "position" | "phone">> // only position and phone can be updated
+    employee: Partial<Pick<Employee, "position" | "phone">>
 ): Promise<Employee> => {
     const index: number = employees.findIndex((e) => e.id === id);
     if (index === -1) {
         throw new Error(`Employee with ID ${id} not found`);
     }
 
-    // Update the employee at the found index
     employees[index] = { ...employees[index], ...employee };
 
     return employees[index];
@@ -101,6 +100,5 @@ export const deleteEmployee = async (id: string): Promise<void> => {
         throw new Error(`Employee with ID ${id} not found`);
     }
 
-    // Remove the employee from the array
     employees.splice(index, 1);
 };
