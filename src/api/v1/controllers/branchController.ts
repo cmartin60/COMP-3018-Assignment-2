@@ -6,7 +6,7 @@ import { Branch } from "../interfaces/Branch";
  * @description Create a new branch.
  * @route POST /branches
  */
-export const createBranch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const createBranch = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const newBranch: Branch = await branchService.createBranch(req.body);
         res.status(201).json({ message: "Branch Created", data: newBranch });
@@ -19,7 +19,7 @@ export const createBranch = async (req: Request, res: Response, next: NextFuncti
  * @description Get all branches.
  * @route GET /branches
  */
-export const getAllBranches = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getAllBranches = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const branches: Branch[] = await branchService.getAllBranches();
         res.status(200).json({ message: "Branches Retrieved", data: branches });
@@ -32,9 +32,10 @@ export const getAllBranches = async (req: Request, res: Response, next: NextFunc
  * @description Get a branch by ID.
  * @route GET /branches/:id
  */
-export const getBranchById = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const getBranchById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const branch = await branchService.getBranchById(req.params.id);
+        const branchId = req.params.id;
+        const branch: Branch = await branchService.getBranchById(branchId);
         res.status(200).json({ message: "Branch Retrieved", data: branch });
     } catch (error) {
         next(error);
@@ -42,12 +43,12 @@ export const getBranchById = async (req: Request, res: Response, next: NextFunct
 };
 
 /**
- * @description Update a branch.
+ * @description Update an existing branch.
  * @route PUT /branches/:id
  */
-export const updateBranch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const updateBranch = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const updatedBranch = await branchService.updateBranch(req.params.id, req.body);
+        const updatedBranch: Branch = await branchService.updateBranch(req.params.id, req.body);
         res.status(200).json({ message: "Branch Updated", data: updatedBranch });
     } catch (error) {
         next(error);
@@ -58,7 +59,7 @@ export const updateBranch = async (req: Request, res: Response, next: NextFuncti
  * @description Delete a branch.
  * @route DELETE /branches/:id
  */
-export const deleteBranch = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+export const deleteBranch = async (req: Request, res: Response, next: NextFunction) => {
     try {
         await branchService.deleteBranch(req.params.id);
         res.status(200).json({ message: "Branch Deleted" });
