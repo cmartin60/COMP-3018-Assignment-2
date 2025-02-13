@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { Employee } from "../models/employeeModel";
+import { Employee } from "../interfaces/employeeModel";
 import * as employeeService from "../services/employeeService";
 
 /**
