@@ -30,7 +30,7 @@ export const getAllBranches = async (): Promise<Branch[]> => {
 export const getBranchById = async (id: string): Promise<Branch> => {
     const branch = branches.find((b) => b.id === id);
     if (!branch) {
-        throw new Error(`Branch with ID ${id} not found`);
+        throw new Error(`Branch with ID ${id} not found`); // Ensure this error is handled
     }
     return branch;
 };
@@ -64,6 +64,6 @@ export const deleteBranch = async (id: string): Promise<void> => {
     if (index === -1) {
         throw new Error(`Branch with ID ${id} not found`);
     }
-
+    
     branches.splice(index, 1);
 };

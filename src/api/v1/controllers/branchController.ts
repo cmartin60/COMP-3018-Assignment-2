@@ -34,11 +34,10 @@ export const getAllBranches = async (req: Request, res: Response, next: NextFunc
  */
 export const getBranchById = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const branchId = req.params.id;
-        const branch: Branch = await branchService.getBranchById(branchId);
+        const branch = await branchService.getBranchById(req.params.id);
         res.status(200).json({ message: "Branch Retrieved", data: branch });
     } catch (error) {
-        next(error);
+        res.status(404).json({ message: "Branch not found" }); // Return 404 instead of 500
     }
 };
 

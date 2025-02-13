@@ -1,5 +1,5 @@
 import request from "supertest";
-import app from "../src/app"; // Ensure this is the correct path to your Express app
+import app from "../src/app";
 
 describe("Branch API", () => {
     let branchId: string;
@@ -47,12 +47,15 @@ describe("Branch API", () => {
 
     it("should delete a branch", async () => {
         const res = await request(app).delete(`/api/v1/branches/${branchId}`);
-
         expect(res.status).toBe(200);
         expect(res.body.message).toBe("Branch Deleted");
-
-        // Verify deletion
+    
         const getRes = await request(app).get(`/api/v1/branches/${branchId}`);
-        expect(getRes.status).toBe(404); // Should return 404 if branch is deleted
+        
+        if (getRes.status !== 404) {
+            console.error("Unexpected response after deletion:", getRes.body);
+        }
+    
+        expect(getRes.status).toBe(404);
     });
 });
