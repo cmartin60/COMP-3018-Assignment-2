@@ -1,6 +1,9 @@
 import express from "express";
 import { createBranch, getAllBranches, getBranchById, updateBranch, deleteBranch } from "../controllers/branchController";
 
+import { branchSchema } from "../validation/branchValidation";
+import { validateRequest } from "../middleware/validate";
+
 const router = express.Router();
 
 /**
@@ -13,7 +16,7 @@ const router = express.Router();
  *       201:
  *         description: Branch created successfully
  */
-router.post("/", createBranch);
+router.post("/", validateRequest(branchSchema), createBranch);
 
 /**
  * @openapi
@@ -63,7 +66,7 @@ router.get("/:id", getBranchById);
  *       404:
  *         description: Branch not found
  */
-router.put("/:id", updateBranch);
+router.put("/:id", validateRequest(branchSchema), updateBranch);
 
 /**
  * @openapi

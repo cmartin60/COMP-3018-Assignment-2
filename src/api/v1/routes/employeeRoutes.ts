@@ -1,6 +1,10 @@
 import express from "express";
 import { createEmployee, getAllEmployees, getEmployeeById, updateEmployee, deleteEmployee} from "../controllers/employeeController";
 
+import { employeeSchema } from "../validation/EmployeeValidation";
+import { validateRequest } from "../middleware/validate";
+
+
 const router = express.Router();
 
 /**
@@ -13,7 +17,7 @@ const router = express.Router();
  *       201:
  *         description: Employee created successfully
  */
-router.post("/", createEmployee);
+router.post("/", validateRequest(employeeSchema), createEmployee);
 
 /**
  * @openapi
@@ -63,7 +67,7 @@ router.get("/:id", getEmployeeById);
  *       404:
  *         description: Employee not found
  */
-router.put("/:id", updateEmployee);
+router.put("/:id", validateRequest(employeeSchema), updateEmployee);
 
 /**
  * @openapi
