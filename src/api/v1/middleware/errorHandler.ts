@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import { RepositoryError, ServiceError } from "../errors/errors";
-import { HTTP_STATUS } from "../constants/httpConstants";
-import { errorResponse } from "../models/responseModel";
+import { HTTP_STATUS } from "src/constants/httpConstants";
+import { errorResponse } from "../interfaces/responseModel";
 
 /**
  * Global error handling middleware for Express.
