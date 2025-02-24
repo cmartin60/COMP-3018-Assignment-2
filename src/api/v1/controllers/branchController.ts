@@ -37,7 +37,7 @@ export const getBranchById = async (req: Request, res: Response, next: NextFunct
         const branch = await branchService.getBranchById(req.params.id);
         res.status(200).json({ message: "Branch Retrieved", data: branch });
     } catch (error) {
-        res.status(404).json({ message: "Branch not found" }); // Return 404 instead of 500
+        next(error); // Properly pass error to middleware
     }
 };
 
