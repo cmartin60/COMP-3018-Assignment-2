@@ -10,14 +10,12 @@ export const getEmployeesByBranch = async (req: Request, res: Response, next: Ne
     try {
         const branchId = parseInt(req.params.branchId);
         if (isNaN(branchId)) {
-            res.status(400).json({ message: "Invalid branch ID format" });
-            return;
+            return next(new Error("Invalid branch ID format"));
         }
 
         const employees: Employee[] = await employeeBranchService.getEmployeesByBranch(branchId);
         if (employees.length === 0) {
-            res.status(404).json({ message: "No employees found for this branch" });
-            return;
+            return next(new Error("No employees found for this branch"));
         }
 
         res.status(200).json({ message: "Employees Retrieved", data: employees });
@@ -36,8 +34,7 @@ export const getEmployeesByDepartment = async (req: Request, res: Response, next
         const employees: Employee[] = await employeeBranchService.getEmployeesByDepartment(department);
 
         if (employees.length === 0) {
-            res.status(404).json({ message: "No employees found for this department" });
-            return;
+            return next(new Error("No employees found for this department"));
         }
 
         res.status(200).json({ message: "Employees Retrieved", data: employees });
