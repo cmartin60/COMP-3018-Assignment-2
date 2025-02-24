@@ -1,24 +1,36 @@
 import { HTTP_STATUS } from "src/constants/httpConstants";
 
 /**
- * Class representing a repository error.
- * Extends the built-in Error class to include an error code and status code.
+ * Class representing a validation error.
+ * Used when incoming request data does not meet the expected format.
  */
-export class RepositoryError extends Error {
-    code: string;
-    statusCode: number;
+export class ValidationError extends Error {
+    public statusCode: number;
+    public errors: string[];
 
     /**
-     * Creates a new RepositoryError instance.
-     * @param {string} message - The error message.
-     * @param {string} code - The error code.
-     * @param {number} statusCode - The HTTP response status code.
+     * Creates a new ValidationError instance.
+     * @param {string} message - The validation error message.
+     * @param {string[]} errors - List of validation errors.
      */
-    constructor(
-        message: string,
-        code: string,
-        statusCode: number = HTTP_STATUS.INTERNAL_SERVER_ERROR
-    ) {
+    constructor(message: string, errors: string[]) {
+        super(message);
+        this.name = "ValidationError";
+        this.statusCode = HTTP_STATUS.BAD_REQUEST;
+        this.errors = errors;
+        Object.setPrototypeOf(this, ValidationError.prototype);
+    }
+}
+
+/**
+ * Class representing a repository error.
+ * Used for errors that occur at the data persistence layer.
+ */
+export class RepositoryError extends Error {
+    public statusCode: number;
+    public code: string;
+
+    constructor(message: string, code: string, statusCode: number = HTTP_STATUS.INTERNAL_SERVER_ERROR) {
         super(message);
         this.name = "RepositoryError";
         this.code = code;
@@ -29,23 +41,13 @@ export class RepositoryError extends Error {
 
 /**
  * Class representing a service error.
- * Extends the built-in Error class to include an error code and status code.
+ * Used for errors that occur in the business logic layer.
  */
 export class ServiceError extends Error {
-    code: string;
-    statusCode: number;
+    public statusCode: number;
+    public code: string;
 
-    /**
-     * Creates a new ServiceError instance.
-     * @param {string} message - The error message.
-     * @param {string} code - The error code.
-     * @param {number} statusCode - The HTTP response status code.
-     */
-    constructor(
-        message: string,
-        code: string,
-        statusCode: number = HTTP_STATUS.INTERNAL_SERVER_ERROR
-    ) {
+    constructor(message: string, code: string, statusCode: number = HTTP_STATUS.INTERNAL_SERVER_ERROR) {
         super(message);
         this.name = "ServiceError";
         this.code = code;

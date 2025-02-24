@@ -1,7 +1,7 @@
 import express from "express";
 import { createEmployee, getAllEmployees, getEmployeeById, updateEmployee, deleteEmployee} from "../controllers/employeeController";
 
-import { employeeSchema } from "../validation/EmployeeValidation";
+import { employeeSchema } from "../validation/employeeValidation";
 import { validateRequest } from "../middleware/validate";
 
 
